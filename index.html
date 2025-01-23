@@ -1,0 +1,52 @@
+<html>
+    <head></head>
+    <body>
+        <input id="input1" placeholder="Enter principal" onInput="debouncing()">
+        <br><br>
+        <input id="input2" placeholder="Enter rate of interest" onInput="debouncing()">
+        <br><br>
+        <input id="input3" placeholder="Enter time" onInput="debouncing()">
+        <br><br>
+
+        <div id="div1" ></div>
+
+        <script>
+
+            let timeout;
+
+            function debouncing(){
+
+                clearTimeout(timeout);
+
+                timeout=setTimeout(function(){
+
+                const p=parseFloat(document.getElementById("input1").value);
+                const r=parseFloat(document.getElementById("input2").value);
+                const t=parseFloat(document.getElementById("input3").value);
+
+                fetch("http://localhost:3000/calculateInterest/",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body: JSON.stringify({
+                        "prin":p,
+                        "rate":r,
+                        "time":t
+                    })
+                })
+                .then((response)=>{
+                    return response.text();
+                })
+                .then((ans)=>{
+                    document.getElementById("div1").innerHTML=ans;
+                })
+                    
+                },500);
+            }
+
+        </script>
+
+
+    </body>
+</html>
