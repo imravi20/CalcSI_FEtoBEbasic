@@ -7,7 +7,7 @@
         <br><br>
         <input id="input3" placeholder="Enter time">
         <br><br>
-        <button id="button1" onclick=calculateInterest1() >Calculate Simple Interest and Total</button>
+        <button id="button1" onclick=calculateInterest2() >Calculate Simple Interest and Total</button>
         <br><br>
 
         <div id="div1" ></div>
@@ -37,6 +37,16 @@
                 .then((ans)=>{
                     document.getElementById("div1").innerHTML=ans;
                 })
+            }
+
+            async function calculateInterest2() {
+                const p=parseFloat(document.getElementById("input1").value);
+                const r=parseFloat(document.getElementById("input2").value);
+                const t=parseFloat(document.getElementById("input3").value);
+
+                const response=await fetch(`http://localhost:3000/calculateInterest?p=${p}&r=${r}&t=${t}`);
+                const ans=await response.text();
+                document.getElementById("div1").innerHTML=ans;
             }
 
         </script>
