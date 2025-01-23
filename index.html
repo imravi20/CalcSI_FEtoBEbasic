@@ -1,0 +1,46 @@
+<html>
+    <head></head>
+    <body>
+        <input id="input1" placeholder="Enter principal">
+        <br><br>
+        <input id="input2" placeholder="Enter rate of interest">
+        <br><br>
+        <input id="input3" placeholder="Enter time">
+        <br><br>
+        <button id="button1" onclick=calculateInterest1() >Calculate Simple Interest and Total</button>
+        <br><br>
+
+        <div id="div1" ></div>
+
+        <script>
+
+            function calculateInterest(){
+                const p=parseFloat(document.getElementById("input1").value);
+                const r=parseFloat(document.getElementById("input2").value);
+                const t=parseFloat(document.getElementById("input3").value);
+
+                const interest=(p*r*t)/100;
+
+                const ans=document.getElementById("div1");
+                ans.innerHTML=interest;
+            }
+
+            function calculateInterest1(){
+                const p=parseFloat(document.getElementById("input1").value);
+                const r=parseFloat(document.getElementById("input2").value);
+                const t=parseFloat(document.getElementById("input3").value);
+
+                fetch(`http://localhost:3000/calculateInterest?p=${p}&r=${r}&t=${t}`)
+                .then((response)=>{
+                    return response.text();
+                })
+                .then((ans)=>{
+                    document.getElementById("div1").innerHTML=ans;
+                })
+            }
+
+        </script>
+
+
+    </body>
+</html>
